@@ -1,13 +1,13 @@
 use super::{Compiler, Precedence};
 
 #[macro_export]
-macro_rules! parse_f {
+macro_rules! ph {
     () => {
         Option<fn(& mut Compiler)>
     };
 }
 pub struct ParseRule {
-    pub prefix: parse_f!(),
-    pub infix: parse_f!(),
+    pub prefix: ph!(),
+    pub infix: ph!(),
     pub prec: Precedence,
 }

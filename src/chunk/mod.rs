@@ -1,14 +1,14 @@
-mod debug;
+pub mod debug;
 mod opcode;
 pub use opcode::*;
 pub use OpCode::*;
 
 use crate::value::Value;
 pub struct Chunk {
-    code: Vec<OpCode>,
+    pub code: Vec<OpCode>,
     lines: Vec<usize>,
     count: usize,
-    constants: Vec<Value>,
+    pub constants: Vec<Value>,
 }
 impl Chunk {
     pub fn new() -> Self {

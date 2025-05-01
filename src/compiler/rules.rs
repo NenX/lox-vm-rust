@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{chunk::OpCode, parse_f};
+use crate::{chunk::OpCode, ph};
 
 use super::{parse_rule, precedence, Compiler, ParseRule, Precedence, TokenType};
 type RuleMap = HashMap<TokenType, ParseRule>;
@@ -57,15 +57,9 @@ pub fn parse_precedence(c: &mut Compiler, precedence: Precedence) {
         infix_rule(c);
     }
 }
-fn r_r(
-    r: &mut RuleMap,
-    t_type: TokenType,
-    prefix: parse_f!(),
-    infix: parse_f!(),
-    prec: Precedence,
-) {
+fn r_r(r: &mut RuleMap, t: TokenType, prefix: ph!(), infix: ph!(), prec: Precedence) {
     r.insert(
-        t_type,
+        t,
         ParseRule {
             prefix,
             infix,

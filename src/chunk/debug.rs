@@ -9,9 +9,10 @@ pub fn disassemble_chunk(chunk: &Chunk, name: &str) {
     while offset < chunk.count {
         offset = disassemble_instruction(chunk, offset);
     }
+    println!("== {} ==", name);
 }
 
-fn disassemble_instruction(chunk: &Chunk, offset: usize) -> usize {
+pub fn disassemble_instruction(chunk: &Chunk, offset: usize) -> usize {
     let byte = &chunk.code[offset];
     match byte {
         OPCONSTANT => constant_instruction("OPCONSTANT", chunk, offset),
@@ -32,14 +33,14 @@ fn disassemble_instruction(chunk: &Chunk, offset: usize) -> usize {
     }
 }
 fn simple_instruction(name: &str, offset: usize) -> usize {
-    println!("{:16} {:04}", name, offset);
+    println!("{:04}   {:16}", offset, name);
     offset + 1
 }
 fn constant_instruction(name: &str, chunk: &Chunk, offset: usize) -> usize {
     let const_idx = chunk.code.get(offset + 1).expect("const_idx");
     let idx = const_idx.as_value_idx();
     let constant = chunk.constants[idx];
-    println!("{:16} {:04} {:?}", name, offset, constant);
+    println!("{:04}   {:16} {:?}", offset, name, constant);
     offset + 2
 }
 #[test]
